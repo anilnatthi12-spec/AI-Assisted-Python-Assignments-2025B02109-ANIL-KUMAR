@@ -1,0 +1,79 @@
+from flask import Flask, render_template_string, request
+
+app = Flask(__name__)
+
+# HTML LOGIN FORM (task #3) with JS validation included
+login_page = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+
+    <script>
+        function validateForm() {
+            let user = document.getElementById("username").value;
+            let pass = document.getElementById("password").value;
+            let error = document.getElementById("errorMsg");
+
+            if (user === "" || pass === "") {
+                error.textContent = "Username and Password cannot be empty.";
+                error.style.color = "red";
+                return false;  // stop submit
+            }
+            return true; // submit allowed
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Login Page</h2>
+
+    <form action="/login" method="POST" onsubmit="return validateForm()">
+        <label>Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="errorMsg"></p>
+</body>
+</html>
+"""
+
+# SUCCESS PAGE
+success_page = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <h2>Login Successful!</h2>
+    <p>Welcome, <b>{{ username }}</b></p>
+</body>
+</html>
+"""
+
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template_string(login_page)
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.form.get("username")
+
+    # Print username to console also
+    print("User Logged In:", username)
+
+    return render_template_string(success_page, username=username)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
