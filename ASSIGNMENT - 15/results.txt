@@ -1,0 +1,4 @@
+{"city": "warangal", "temp": 25.11, "humidity": 61, "weather": "Scattered clouds"}
+{"city": "warangal", "temp": 25.11, "humidity": 61, "weather": "Scattered clouds"}
+{"city": "warangal", "temp": 25.11, "humidity": 61, "weather": "Scattered clouds"}
+{"city": "london", "temp": 10.76, "humidity": 91, "weather": "Overcast clouds"}
